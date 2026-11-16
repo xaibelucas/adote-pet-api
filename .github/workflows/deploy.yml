@@ -1,0 +1,62 @@
+# Pipeline de Entrega Contínua (PGC 6.1)
+# Merge na main -> deploy automático em staging -> gate manual (@xaibelucas) -> production.
+# Os dois environments aceitam apenas branches protegidas (main).
+# O "deploy" sobe a API no runner e valida o /health: o projeto ainda não tem
+# servidor de hospedagem, então a etapa demonstra o fluxo e os gates de aprovação.
+name: CD
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  staging:
+    name: Deploy em staging
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --omit=dev
+      - name: Subir API e validar health check (Quality Gate Staging)
+        run: |
+          npm start &
+          for i in $(seq 1 15); do
+            curl -fsS http://localhost:3000/health && exit 0
+            sleep 1
+          done
+          echo "Health check falhou" && exit 1
+
+  production:
+    name: Deploy em production
+    needs: staging
+    runs-on: ubuntu-latest
+    environment: production   # aguarda aprovação manual de @xaibelucas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --omit=dev
+      - name: Subir API e validar health check (produção)
+        run: |
+          npm start &
+          for i in $(seq 1 15); do
+            curl -fsS http://localhost:3000/health && exit 0
+            sleep 1
+          done
+          echo "Health check falhou" && exit 1
+      - name: Registrar versão implantada
+        run: echo "Deploy em produção do commit ${GITHUB_SHA}"

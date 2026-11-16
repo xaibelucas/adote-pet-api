@@ -112,6 +112,9 @@ adote-pet-api/
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── defeito.yml
 │   │   └── funcionalidade.yml
+│   ├── workflows/
+│   │   ├── ci.yml                      # CI: npm ci, npm audit, npm test (PR e main)
+│   │   └── deploy.yml                  # CD: staging automático -> gate -> production
 │   ├── CODEOWNERS
 │   └── pull_request_template.md
 ├── docs/

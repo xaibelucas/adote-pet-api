@@ -1,0 +1,35 @@
+# Pipeline de Integração Contínua (PGC 5.1)
+# Roda em todo PR para a main e em todo push na main.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Testes (Node 20)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código-fonte
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalação determinística (npm ci)
+        run: npm ci
+
+      - name: Auditoria de dependências
+        run: npm audit --audit-level=high
+
+      - name: Testes unitários (npm test)
+        run: npm test
