@@ -1,0 +1,28 @@
+name: Funcionalidade
+description: Proponha uma nova funcionalidade ou melhoria na API
+title: 'feat: '
+labels: ['funcionalidade']
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual necessidade do projeto ou da ONG isto atende?
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Critérios de aceitação
+      placeholder: |
+        - [ ] O usuário consegue...
+        - [ ] A API responde status 200/201 quando...
+        - [ ] O sistema valida...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      options: [api, animais, adocoes, autenticacao, pipeline/infra]
+    validations:
+      required: true

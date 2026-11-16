@@ -1,0 +1,11 @@
+# Revisores automáticos por área (PGC 2 e 5.2).
+#
+# Par de revisão permanente: @TruckControl
+# Desenvolvedor Líder: @xaibelucas
+# Vale a ÚLTIMA linha que casar com o arquivo.
+
+*                    @TruckControl
+/.github/            @xaibelucas @TruckControl
+/scripts/            @xaibelucas @TruckControl
+**/package.json      @xaibelucas @TruckControl
+/docs/               @xaibelucas @TruckControl

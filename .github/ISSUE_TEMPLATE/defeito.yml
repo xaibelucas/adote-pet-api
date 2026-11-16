@@ -1,0 +1,27 @@
+name: Defeito
+description: Relate um erro ou bug encontrado na API
+title: 'fix: '
+labels: ['defeito']
+body:
+  - type: input
+    id: versao
+    attributes:
+      label: Versão / ambiente
+      description: 'Informe o ambiente ou versão afetada (ex.: Staging v1.0.0 ou Produção)'
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. Fazer requisição GET /api/pets/...
+        2. Enviar payload...
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Resultado esperado x obtido
+    validations:
+      required: true

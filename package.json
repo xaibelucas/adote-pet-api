@@ -1,0 +1,24 @@
+{
+  "name": "adote-pet-api",
+  "version": "1.0.0",
+  "description": "API REST para gestao e adocao de animais resgatados",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [
+    "ong",
+    "adocao",
+    "pets",
+    "api",
+    "express",
+    "gcs"
+  ],
+  "author": "xaibelucas",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
